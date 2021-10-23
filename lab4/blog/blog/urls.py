@@ -17,10 +17,12 @@ Including another URLconf
 from articles import views
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls import url
 
-urlpatterns = [
+
+
+urlpatterns = [ 
     path('admin/', admin.site.urls),
-    path('', views.archive, name = 'Articles'),
-    path(r'article/(?P<article_id>\d)$', views.get_article, name='get_article')
-    # path('article/<int:article_id>', views.get_article, name='get_article')
+    path('',views.archive, name='archive'), 
+    url(r'article/(?P<article_id>\d+)$', views.get_article, name='get_article'),
 ]
