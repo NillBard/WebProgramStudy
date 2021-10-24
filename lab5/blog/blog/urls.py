@@ -19,10 +19,9 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
 
-
-
 urlpatterns = [ 
     path('admin/', admin.site.urls),
     path('',views.archive, name='archive'), 
     url(r'article/(?P<article_id>\d+)$', views.get_article, name='get_article'),
+    path('article/new/', views.create_post, name = 'create_post')
 ]
