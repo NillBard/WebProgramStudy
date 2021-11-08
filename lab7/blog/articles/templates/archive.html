@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}/static/style.css" />
+    <title>Архив статей</title>
+  </head>
+  <body class="archive">
+    <script src="{{ STATIC_URL }}/static/js/fold-post.js"></script>
+    <body>
+      <div class="header">
+        <img src="../static/uhod-korgi.jpg" alt="korgi" />
+      </div>
+      <div class="buttons">
+        <a href="/registration"> Регистрация</a>
+        /
+        <a href="/logIn">Вход</a>
+        /
+        <a href="/logOut">Выйти</a>
+      </div>
+      <a href="/article/new/" class="add-new-post"> Добавить новую статью</a>
+
+      <div class="archive">
+        {% for post in posts %}
+        <div class="one-post">
+          <a href="article/{{ post.id }}" class="post-title"
+            >{{ post.title }}
+          </a>
+          <button class="fold-button">Cвернуть</button>
+          <div class="article-info">
+            <div class="article-author">{{ post.author.username }}</div>
+            <div class="article-created-date">{{ post.created_date }}</div>
+          </div>
+
+          <p class="article-text">{{ post.get_excerpt }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </body>
+  </body>
+</html>

@@ -1,0 +1,146 @@
+/* Общие стили */
+
+body {
+  background: #1abc9c;
+  font-family: Tahoma, Arial, sans-serif;
+  color: #ffffff;
+}
+
+.fold-button {
+  margin: 1px;
+  border: 1px solid whitesmoke;
+  color: #ffffff;
+  position: absolute;
+  background: transparent;
+  font-size: 18px;
+  right: 20px;
+  border-radius: 10px;
+  padding: 3px;
+}
+
+.archive img {
+  display: block;
+  width: 300px;
+  height: 150px;
+  margin: 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.post-title a {
+  color: #ffffff;
+}
+
+.article-author {
+  width: 50%;
+  float: left;
+}
+
+.article-created-date {
+  text-align: right;
+}
+
+/* Стили главной страницы */
+
+.buttons {
+  position: absolute;
+  right: 200px;
+  top: 70px;
+  width: 305px;
+}
+
+.buttons a {
+  color: white;
+  font-size: x-large;
+  text-decoration: none;
+}
+
+.buttons :last-child {
+  background-color: red;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.archive .one-post a {
+  color: white;
+  font-size: xx-large;
+  text-decoration: none;
+}
+
+.add-new-post {
+  padding: 5px;
+  width: 400px;
+  color: #1abc9c;
+  font-size: xx-large;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.archive {
+  width: 960px;
+  margin: 0 auto;
+}
+
+.archive .one-post {
+  position: relative;
+  margin-bottom: 30px;
+  border-color: white;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Стили страниц со статьями */
+
+.article {
+  width: 960px;
+  margin: 0 auto;
+}
+
+.article .one-post {
+  margin-bottom: 30px;
+  border-color: white;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.article img {
+  display: block;
+  width: 300px;
+  height: 150px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.article .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.article a {
+  padding: 8px;
+  display: block;
+  text-align: right;
+  color: white;
+  font-size: x-large;
+  text-decoration: none;
+  border-radius: 10px;
+  border: 1px solid;
+  border-color: #ffffff;
+}
+
+.one-post.folded .article-info {
+  display: none;
+}
+
+.one-post.folded .article-text {
+  display: none;
+}
