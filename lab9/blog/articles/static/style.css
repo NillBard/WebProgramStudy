@@ -1,0 +1,219 @@
+/* Общие стили */
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #1abc9c;
+  font-family: Tahoma, Arial, sans-serif;
+  color: #ffffff;
+}
+
+.fold-button {
+  margin: 1px;
+  border: 1px solid whitesmoke;
+  color: #ffffff;
+  position: absolute;
+  background: transparent;
+  font-size: 18px;
+  right: 20px;
+  border-radius: 10px;
+  padding: 3px;
+}
+
+.post-title a {
+  color: #ffffff;
+}
+
+.article-author {
+  width: 50%;
+  float: left;
+}
+
+.article-created-date {
+  text-align: right;
+}
+
+/* Стили страниц со статьями */
+
+.article {
+  width: 960px;
+  margin: 0 auto;
+}
+
+.article .one-post {
+  margin-bottom: 30px;
+  border-color: white;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.article img {
+  display: block;
+  width: 300px;
+  height: 150px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.article .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.article a {
+  padding: 8px;
+  display: block;
+  text-align: right;
+  color: white;
+  font-size: x-large;
+  text-decoration: none;
+  border-radius: 10px;
+  border: 1px solid;
+  border-color: #ffffff;
+}
+
+.one-post.folded .article-info {
+  display: none;
+}
+
+.one-post.folded .article-text {
+  display: none;
+}
+
+.one-post-shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: black;
+  z-index: -1;
+  opacity: 0;
+}
+
+/* Стили главной страницы */
+
+.buttons {
+  width: 305px;
+}
+
+.buttons a {
+  color: white;
+  font-size: x-large;
+  text-decoration: none;
+}
+
+.buttons :last-child {
+  background-color: red;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.archive .one-post a {
+  color: white;
+  font-size: xx-large;
+  text-decoration: none;
+}
+
+.add-new-post {
+  padding: 5px;
+  width: 400px;
+  color: #1abc9c;
+  font-size: xx-large;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.archive {
+  width: 960px;
+  margin: 30px auto;
+}
+
+.archive .one-post {
+  position: relative;
+  margin-bottom: 30px;
+  border-color: white;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.container {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.container .header {
+  height: 700px;
+  width: 100%;
+  padding-top: 25px;
+  background-color: #2ce6c0;
+}
+
+.header-text-area {
+  margin-top: 100px;
+  margin-left: 180px;
+  width: 50%;
+  height: 300px;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-text-area p {
+  color: white;
+  font-size: 50px;
+}
+
+.icons-for-parallax {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  height: 530px;
+  position: relative;
+}
+.icons-for-parallax img {
+  /* здесь находятся общие для всех картинок стили */
+  position: absolute;
+  top: 0;
+}
+.icons-for-parallax-first {
+  width: 200px;
+  margin-top: 200px;
+  z-index: 3; /* эта картинка на переднем плане, у неё больший z-index
+ */
+}
+.icons-for-parallax-second {
+  width: 175px; /* уменьшить ширину для картинки, чтобы визуально */
+  /* находилась дальше для пользователя */
+  margin-top: 100px; /* эта картинка слегка смещена вправо и вниз */
+  margin-left: 80px; /* за счет левой и верхней границ */
+  z-index: 2;
+}
+.icons-for-parallax-third {
+  width: 150px;
+  margin-left: 160px;
+  z-index: 1; /* эта картинка на заднем плане, у неё меньший z-index */
+}
+
+.logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 20px;
+  width: 300px;
+  height: 150px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.2);
+}
