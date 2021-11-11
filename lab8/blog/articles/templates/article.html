@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ STATIC_URL }}/static/style.css" />
+    <title>Document</title>
+  </head>
+  <body class="article">
+    <div class="header">
+      <img src="../static/uhod-korgi.jpg" alt="korgi" />
+      <a href="/" >Все статьи</a>
+    </div>
+      <div class="one-post">
+        <div class="head_article">
+          <h1 class="post-title">{{ post.title }}</h1>
+        </div>
+        <div class="article-info">
+          <div class="article-author">{{ post.author.username }}</div>
+          <div class="article-created-date">{{ post.created_date }}</div>
+        </div>
+        <p class="article-text">{{ post.get_excerpt }}</p>
+      </div>
+    </div>
+  </body>
+</html>
