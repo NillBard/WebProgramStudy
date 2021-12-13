@@ -1,0 +1,22 @@
+Metadata-Version: 2.1
+Name: analyzer
+Version: 0.0.1
+Summary: UNKNOWN
+Home-page: https://github.com/alvassin/backendschool2019
+Author: Daniil Bardyuk
+Author-email: dan.bardyuk@yandex.ru
+License: MIT
+Platform: all
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: Russian
+Classifier: Operating System :: Windows
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Requires-Python: >=3.8
+Provides-Extra: dev
+
+UNKNOWN
+
