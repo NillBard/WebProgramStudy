@@ -1,3 +1,2 @@
-
 include requirements*.txt
-include analyzer/db/alembic.ini
+include analyzer/alembic.ini
