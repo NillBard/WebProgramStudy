@@ -30,7 +30,7 @@ jobs:
         env:
           CI_ANALYZER_PG_URL: postgresql://user:hackme@postgres/analyzer
         with:
-          args: /bin/bash -c "cd kursovaya pip install -U '.[dev]'  && wait-for-port postgres:5432 && pytest -vv --cov=analyzer --cov-report=term-missing tests"
+          args: /bin/bash -c "cd kursovaya && pip install -U '.[dev]'  && wait-for-port postgres:5432 && pytest -vv --cov=analyzer --cov-report=term-missing tests"
 
   # Сборка и загрузка Docker-образа с приложением
   publish:
