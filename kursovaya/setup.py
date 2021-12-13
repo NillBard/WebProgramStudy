@@ -48,7 +48,8 @@ setup(
     extras_require={'dev': load_requirements('requirements.dev.txt')},
     entry_points={
         'console_scripts': [
-            'analyzer-db = analyzer.db.__main__:main'
+            'analyzer-db = analyzer.db.__main__:main',
+            'analyzer-api = analyzer.api.__main__:main'
         ]
     },
     include_package_data=True,

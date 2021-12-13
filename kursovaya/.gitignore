@@ -131,3 +131,5 @@ dmypy.json
 # User-specific stuff:
 .idea/
 .vscode/
+
+.pytest_cache/

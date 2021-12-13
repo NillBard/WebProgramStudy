@@ -24,11 +24,9 @@ fake = faker.Faker('ru_RU')
 
 
 def url_for(path: str, **kwargs) -> str:
-    """
-    Генерирует URL для динамического aiohttp маршрута с параметрами.
-    """
+
     kwargs = {
-        key: str(value)  # Все значения должны быть str (для DynamicResource)
+        key: str(value)
         for key, value in kwargs.items()
     }
     return str(DynamicResource(path).url_for(**kwargs))
@@ -45,10 +43,7 @@ def generate_citizen(
         apartment: Optional[int] = None,
         relatives: Optional[List[int]] = None
 ) -> Dict[str, Any]:
-    """
-    Создает и возвращает жителя, автоматически генерируя данные для не
-    указанных полей.
-    """
+
     if citizen_id is None:
         citizen_id = randint(0, MAX_INTEGER)
 
@@ -98,19 +93,9 @@ def generate_citizens(
         start_citizen_id: int = 0,
         **citizen_kwargs
 ) -> List[Dict[str, Any]]:
-    """
-    Генерирует список жителей.
-    :param citizens_num: Количество жителей
-    :param relations_num: Количество родственных связей (подразумевается одна
-            связь между двумя людьми)
-    :param unique_towns: Кол-во уникальных городов в выгрузке
-    :param start_citizen_id: С какого citizen_id начинать
-    :param citizen_kwargs: Аргументы для функции generate_citizen
-    """
-    # Ограничнный набор городов
+
     towns = [fake.city_name() for _ in range(unique_towns)]
 
-    # Создаем жителей
     max_citizen_id = start_citizen_id + citizens_num - 1
     citizens = {}
     for citizen_id in range(start_citizen_id, max_citizen_id + 1):
@@ -118,18 +103,14 @@ def generate_citizens(
         citizens[citizen_id] = generate_citizen(citizen_id=citizen_id,
                                                 **citizen_kwargs)
 
-    # Создаем родственные связи
     unassigned_relatives = relations_num or citizens_num // 10
     shuffled_citizen_ids = list(citizens.keys())
     while unassigned_relatives:
-        # Перемешиваем список жителей
+
         shuffle(shuffled_citizen_ids)
 
-        # Выбираем жителя, кому ищем родственника
         citizen_id = shuffled_citizen_ids[0]
 
-        # Выбираем родственника для этого жителя и проставляем
-        # двустороннюю связь
         for relative_id in shuffled_citizen_ids[1:]:
             if relative_id not in citizens[citizen_id]['relatives']:
                 citizens[citizen_id]['relatives'].append(relative_id)
@@ -143,9 +124,7 @@ def generate_citizens(
 
 
 def normalize_citizen(citizen):
-    """
-    Преобразует объект с жителем для сравнения с другими.
-    """
+
     return {**citizen, 'relatives': sorted(citizen['relatives'])}
 
 

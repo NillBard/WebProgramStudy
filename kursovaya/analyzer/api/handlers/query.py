@@ -12,7 +12,9 @@ CITIZENS_QUERY = select([
     citizens_table.c.street,
     citizens_table.c.building,
     citizens_table.c.apartment,
-
+    # В результате LEFT JOIN у жителей не имеющих родственников список
+    # relatives будет иметь значение [None]. Чтобы удалить это значение
+    # из списка используется функция array_remove.
     func.array_remove(
         func.array_agg(relations_table.c.relative_id),
         None

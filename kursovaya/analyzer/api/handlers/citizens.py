@@ -7,7 +7,6 @@ from analyzer.utils.pg import SelectQuery
 
 from .base import BaseImportView
 from .query import CITIZENS_QUERY
-from kursovaya.analyzer.api.handlers import query
 
 
 class CitizensView(BaseImportView):
@@ -15,7 +14,7 @@ class CitizensView(BaseImportView):
 
     @docs(summary='Отобразить жителей для указанной выгрузки')
     @response_schema(CitizensResponseSchema())
-    async def set(self):
+    async def get(self):
         await self.check_import_exists()
 
         query = CITIZENS_QUERY.where(

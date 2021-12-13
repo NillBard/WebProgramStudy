@@ -1,3 +1,0 @@
-[console_scripts]
-analyzer-db = analyzer.db.__main__:main
-
