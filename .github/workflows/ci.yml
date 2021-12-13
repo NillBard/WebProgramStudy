@@ -35,7 +35,7 @@ jobs:
   # Сборка и загрузка Docker-образа с приложением
   publish:
     # Выполняется только если изменения попали в ветку master
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     # Требует, чтобы задача test была выполнена успешно
     needs: test
     runs-on: ubuntu-latest
