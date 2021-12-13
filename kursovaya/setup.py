@@ -34,7 +34,7 @@ setup(
     license=module.__license__,
     description=module.__doc__,
     long_description=open('README.md').read(),
-    url='https://github.com/alvassin/backendschool2019',
+    url='https://github.com/NillBard/WebProgramStudy',
     platforms='all',
     classifiers=[
         'Intended Audience :: Developers',
