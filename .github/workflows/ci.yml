@@ -16,8 +16,8 @@ jobs:
         ports:
           - 5432:5432
         env:
-          POSTGRES_USER: danba
-          POSTGRES_PASSWORD: 1921
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: hackme
           POSTGRES_DB: analyzer
 
     steps:
@@ -25,7 +25,7 @@ jobs:
       - name: test
         uses: docker://snakepacker/python:all
         env:
-          CI_ANALYZER_PG_URL: postgresql://danba:1921@postgres/analyzer
+          CI_ANALYZER_PG_URL: postgresql://user:hackme@postgres/analyzer
         with:
           args: /bin/bash -c "cd kursovaya && pip install -U '.[dev]' && wait-for-port postgres:5432 && pytest -vv --cov=analyzer --cov-report=term-missing test"
 
@@ -45,6 +45,6 @@ jobs:
         with:
           username: ${{ secrets.REGISTRY_LOGIN }}
           password: ${{ secrets.REGISTRY_TOKEN }}
-          repository: alvassin/backendschool2019
+          repository: NillBard/WebProgramStudy
           target: api
           tags: 0.0.1, latest
