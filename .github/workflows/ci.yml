@@ -27,7 +27,7 @@ jobs:
         env:
           CI_ANALYZER_PG_URL: postgresql://danba:1921@postgres/analyzer
         with:
-          args: /bin/bash -c cd/kursovaya "pip install -U '.[dev]' && pylama && wait-for-port postgres:5432 && pytest -vv --cov=analyzer --cov-report=term-missing tests"
+          args: /bin/bash -c "cd kursovaya && pip install -U '.[dev]' && pylama && wait-for-port postgres:5432 && pytest -vv --cov=analyzer --cov-report=term-missing tests"
 
   publish:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
