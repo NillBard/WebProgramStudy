@@ -30,17 +30,17 @@ setup(
     license=module.__license__,
     description=module.__doc__,
     long_description=open('README.md').read(),
-    url='https://github.com/alvassin/backendschool2019',
+    url='https://github.com/NillBard/WebProgramStudy',
     platforms='all',
     classifiers=[
         'Intended Audience :: Developers',
         'Natural Language :: Russian',
-        'Operating System :: Windows',
+        'Operating System :: MacOS',
         'Operating System :: POSIX',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: Implementation :: CPython'
+        'Programming Language :: Python :: Implementation :: CPython',
     ],
     python_requires='>=3.8',
     packages=find_packages(exclude=['tests']),
@@ -48,9 +48,8 @@ setup(
     extras_require={'dev': load_requirements('requirements.dev.txt')},
     entry_points={
         'console_scripts': [
-            '{0}-api = {0}.api.__main__:main'.format(module_name),
-            '{0}-db = {0}.db.__main__:main'.format(module_name)
+            'analyzer-db = analyzer.db.__main__:main'
         ]
     },
-    include_package_data=True
+    include_package_data=True,
 )

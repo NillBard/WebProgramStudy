@@ -18,9 +18,9 @@ def main():
     )
 
     options = alembic.parser.parse_args()
+
     if 'cmd' not in options:
         alembic.parser.error('too few arguments')
-        exit(128)
     else:
         config = make_alembic_config(options)
         exit(alembic.run_cmd(config, options))
