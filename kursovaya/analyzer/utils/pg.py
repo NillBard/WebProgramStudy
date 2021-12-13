@@ -14,7 +14,7 @@ from sqlalchemy import Numeric, cast, func
 from sqlalchemy.sql import Select
 
 CENSORED = '***'
-DEFAULT_PG_URL = 'postgresql://danba:1921@localhost:5432/analyzer'
+DEFAULT_PG_URL = 'postgresql://user:hackme@localhost:5432/analyzer'
 MAX_QUERY_ARGS = 32767
 MAX_INTEGER = 2147483647
 
