@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const wrappers = document.querySelector(".archive");
 
   wrappers.addEventListener("click", (e) => {
-    target = e.target;
+    let target = e.target;
     if (target && target.matches(".fold-button")) {
       if (target.parentElement.classList.contains("folded")) {
         target.innerHTML = "Свернуть";
