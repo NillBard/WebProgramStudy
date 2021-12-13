@@ -9,7 +9,10 @@ from analyzer.utils.testing import (
 
 
 def make_response(values: Mapping[str, Any] = None):
-
+    """
+    Генерирует словарь, в котором ключи месяцы, а значения по умолчанию - [].
+    Позволяет записать ожидаемый ответ в краткой форме.
+    """
     return {
         str(month): values.get(str(month), []) if values else []
         for month in range(1, 13)
@@ -17,7 +20,9 @@ def make_response(values: Mapping[str, Any] = None):
 
 
 datasets = [
-
+    # Житель, у которого несколько родственников.
+    # Обработчик должен корректно показывать сколько подарков приобретет
+    # житель #1 своим родственникам в каждом месяце.
     {
         'citizens': [
             generate_citizen(citizen_id=1, birth_date='31.12.2019',
@@ -38,7 +43,9 @@ datasets = [
         })
     },
 
-
+    # Выгрузка с жителем, который сам себе родственник.
+    # Обработчик должен корректно показывать что житель купит себе подарок в
+    # месяц своего рождения.
     {
         'citizens': [
             generate_citizen(citizen_id=1, name='Джейн', gender='male',
@@ -51,7 +58,8 @@ datasets = [
         })
     },
 
-
+    # Житель без родственников.
+    # Обработчик не должен учитывать его при расчетах.
     {
         'citizens': [
             generate_citizen(relatives=[])
@@ -59,6 +67,8 @@ datasets = [
         'expected': make_response()
     },
 
+    # Пустая выгрузка.
+    # Обработчик не должен падать на пустой выгрузке.
     {
         'citizens': [],
         'expected': make_response()
@@ -68,7 +78,9 @@ datasets = [
 
 @pytest.mark.parametrize('dataset', datasets)
 async def test_get_citizens_birthdays(api_client, dataset):
-
+    # Перед прогоном каждого теста добавляем в БД дополнительную выгрузку с
+    # двумя родственниками, чтобы убедиться, что обработчик различает жителей
+    # разных выгрузок.
     await import_data(api_client, [
         generate_citizen(citizen_id=1, relatives=[2]),
         generate_citizen(citizen_id=2, relatives=[1])

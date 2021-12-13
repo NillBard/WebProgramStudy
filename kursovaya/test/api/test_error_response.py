@@ -9,18 +9,26 @@ from analyzer.api.schema import ErrorResponseSchema
 
 
 async def unexpected_error(_: Request):
-
+    """
+    Обработчик с внутренним исключением.
+    """
     raise RuntimeError('Message with internal information')
 
 
 async def http_error_without_json_payload(_: Request):
-
+    """
+    Обработчик с веб-исключением.
+    """
     raise HTTPBadRequest(text='some error happened')
 
 
 @pytest.fixture
 async def api_client(aiohttp_client, arguments, migrated_postgres):
-
+    """
+    Для регистрации обработчиков имитирующих ошибки необходимо создать
+    новый объект Application (aiohttp не разрешает регистрацию обработчиков в
+    запущенном приложении).
+    """
     app = create_app(arguments)
     app.router.add_post('/unexpected-error', unexpected_error)
     app.router.add_post('/http-error-without-json-payload',

@@ -16,14 +16,20 @@ CURRENT_DATE = datetime(2020, 2, 17, tzinfo=pytz.utc)
 
 
 def age2date(years: int, days: int = 0, base_date=CURRENT_DATE) -> str:
-
+    """
+    Возвращает дату рождения для жителя, возраст которого составляет years лет
+    и days дней. Дата рассчитывается исходя из базовой CURRENT_DATE.
+    Позволяет представлять дату рождения жителя в виде возраста человека в днях
+    и годах, что гораздо нагляднее в тестах.
+    """
     birth_date = copy(base_date).replace(year=base_date.year - years)
     birth_date -= timedelta(days=days)
     return birth_date.strftime(BIRTH_DATE_FORMAT)
 
 
 datasets = [
-
+    # Несколько жителей у которых завтра день рождения.
+    # Проверяется что обработчик использует в рассчетах количество полных лет.
     {
         'citizens': [
             generate_citizen(birth_date=age2date(years=10, days=364),
@@ -43,6 +49,9 @@ datasets = [
         ]
     },
 
+    # Житель у которого сегодня день рождения.
+    # Проверяет краевой случай, возраст жителя у которого сегодня день рождения
+    # не должен рассчитаться как на 1 год меньше.
     {
         'citizens': [
             generate_citizen(birth_date=age2date(years=10),
@@ -58,6 +67,8 @@ datasets = [
         ]
     },
 
+    # Пустая выгрузка.
+    # Обработчик не должен падать на пустой выгрузке.
     {
         'citizens': [],
         'expected': []
@@ -68,7 +79,9 @@ datasets = [
 @patch('analyzer.api.handlers.TownAgeStatView.CURRENT_DATE', new=CURRENT_DATE)
 @pytest.mark.parametrize('dataset', datasets)
 async def test_get_ages(api_client, dataset):
-
+    # Перед прогоном каждого теста добавим в БД дополнительную выгрузку с
+    # жителем из другого города, чтобы убедиться, что обработчик различает
+    # жителей разных выгрузок.
     await import_data(api_client, [
         generate_citizen(citizen_id=1, town='Санкт-Петербург')
     ])

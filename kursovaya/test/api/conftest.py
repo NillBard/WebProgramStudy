@@ -45,7 +45,9 @@ async def api_client(aiohttp_client, arguments):
 
 @pytest.fixture
 def migrated_postgres_connection(migrated_postgres):
-
+    """
+    Синхронное соединение со смигрированной БД.
+    """
     engine = create_engine(migrated_postgres)
     conn = engine.connect()
     try:
