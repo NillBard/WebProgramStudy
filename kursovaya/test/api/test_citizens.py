@@ -11,30 +11,21 @@ from analyzer.utils.testing import (
 
 
 datasets = [
-    # Житель с несколькими родственниками.
-    # Обработчик должен корректно возвращать жителя со всеми родственниками.
     [
         generate_citizen(citizen_id=1, relatives=[2, 3]),
         generate_citizen(citizen_id=2, relatives=[1]),
         generate_citizen(citizen_id=3, relatives=[1])
     ],
 
-    # Житель без родственников.
-    # Поле relatives должно содержать пустой список (может иметь значение
-    # [null], которое появляется при агрегации строк с LEFT JOIN).
     [
         generate_citizen(relatives=[])
     ],
 
-    # Выгрузка с жителем, который сам себе родственник.
-    # Обработчик должен возвращать идентификатор жителя в списке родственников.
     [
         generate_citizen(citizen_id=1, name='Джейн', gender='male',
                          birth_date='17.02.2020', relatives=[1])
     ],
 
-    # Пустая выгрузка.
-    # Обработчик не должен падать на пустой выгрузке.
     [],
 ]
 
@@ -80,12 +71,8 @@ def import_dataset(connection, citizens) -> int:
 
 @pytest.mark.parametrize('dataset', datasets)
 async def test_get_citizens(api_client, migrated_postgres_connection, dataset):
-    # Перед прогоном каждого теста добавляем в БД дополнительную выгрузку с
-    # одним жителем, чтобы убедиться, что обработчик различает жителей разных
-    # выгрузок.
     import_dataset(migrated_postgres_connection, [generate_citizen()])
 
-    # Проверяем обработчик на указанных данных
     import_id = import_dataset(migrated_postgres_connection, dataset)
     actual_citizens = await get_citizens(api_client, import_id)
     assert compare_citizen_groups(actual_citizens, dataset)

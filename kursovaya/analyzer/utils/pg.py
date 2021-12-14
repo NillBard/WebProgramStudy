@@ -13,8 +13,9 @@ from configargparse import Namespace
 from sqlalchemy import Numeric, cast, func
 from sqlalchemy.sql import Select
 
+
 CENSORED = '***'
-DEFAULT_PG_URL = 'postgresql://user:hackme@localhost:5432/analyzer'
+DEFAULT_PG_URL = 'postgresql://user:hackme@localhost/analyzer'
 MAX_QUERY_ARGS = 32767
 MAX_INTEGER = 2147483647
 
@@ -51,18 +52,12 @@ def rounded(column, fraction: int = 2):
 
 def make_alembic_config(cmd_opts: Union[Namespace, SimpleNamespace],
                         base_path: str = PROJECT_PATH) -> Config:
-    """
-    Создает объект конфигурации alembic на основе аргументов командной строки,
-    подменяет относительные пути на абсолютные.
-    """
-    # Подменяем путь до файла alembic.ini на абсолютный
     if not os.path.isabs(cmd_opts.config):
         cmd_opts.config = os.path.join(base_path, cmd_opts.config)
 
     config = Config(file_=cmd_opts.config, ini_section=cmd_opts.name,
                     cmd_opts=cmd_opts)
 
-    # Подменяем путь до папки с alembic на абсолютный
     alembic_location = config.get_main_option('script_location')
     if not os.path.isabs(alembic_location):
         config.set_main_option('script_location',
@@ -74,10 +69,6 @@ def make_alembic_config(cmd_opts: Union[Namespace, SimpleNamespace],
 
 
 class SelectQuery(AsyncIterable):
-    """
-    Используется чтобы отправлять данные из PostgreSQL клиенту сразу после
-    получения, по частям, без буфферизации всех данных.
-    """
     PREFETCH = 1000
 
     __slots__ = (

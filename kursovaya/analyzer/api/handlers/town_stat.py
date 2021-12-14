@@ -15,7 +15,7 @@ class TownAgeStatView(BaseImportView):
     URL_PATH = r'/imports/{import_id:\d+}/towns/stat/percentile/age'
     CURRENT_DATE = text("TIMEZONE('utc', CURRENT_TIMESTAMP)")
 
-    @docs(summary='Статистика возрастов жителей по городам')
+    @docs(summary='age statistics')
     @response_schema(TownAgeStatResponseSchema(), code=HTTPStatus.OK.value)
     async def get(self):
         await self.check_import_exists()

@@ -24,7 +24,6 @@ fake = faker.Faker('ru_RU')
 
 
 def url_for(path: str, **kwargs) -> str:
-
     kwargs = {
         key: str(value)
         for key, value in kwargs.items()
@@ -43,7 +42,6 @@ def generate_citizen(
         apartment: Optional[int] = None,
         relatives: Optional[List[int]] = None
 ) -> Dict[str, Any]:
-
     if citizen_id is None:
         citizen_id = randint(0, MAX_INTEGER)
 
@@ -93,7 +91,6 @@ def generate_citizens(
         start_citizen_id: int = 0,
         **citizen_kwargs
 ) -> List[Dict[str, Any]]:
-
     towns = [fake.city_name() for _ in range(unique_towns)]
 
     max_citizen_id = start_citizen_id + citizens_num - 1
@@ -106,7 +103,6 @@ def generate_citizens(
     unassigned_relatives = relations_num or citizens_num // 10
     shuffled_citizen_ids = list(citizens.keys())
     while unassigned_relatives:
-
         shuffle(shuffled_citizen_ids)
 
         citizen_id = shuffled_citizen_ids[0]
@@ -124,7 +120,6 @@ def generate_citizens(
 
 
 def normalize_citizen(citizen):
-
     return {**citizen, 'relatives': sorted(citizen['relatives'])}
 
 

@@ -12,7 +12,7 @@ from .query import CITIZENS_QUERY
 class CitizensView(BaseImportView):
     URL_PATH = r'/imports/{import_id:\d+}/citizens'
 
-    @docs(summary='Отобразить жителей для указанной выгрузки')
+    @docs(summary='citizens for specified import')
     @response_schema(CitizensResponseSchema())
     async def get(self):
         await self.check_import_exists()

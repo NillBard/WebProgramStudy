@@ -15,8 +15,6 @@ class PatchedCitizenView(CitizenView):
     async def get_citizen(self, conn, import_id, citizen_id):
         citizen = await super().get_citizen(conn, import_id, citizen_id)
 
-        # Блокируем выполнение других методов, пока все обработчики не
-        # прочитают жителя из БД.
         await asyncio.sleep(2)
         return citizen
 
@@ -26,17 +24,11 @@ class PatchedCitizenViewWithoutLock(PatchedCitizenView):
 
     @staticmethod
     async def acquire_lock(conn, import_id):
-        """
-        Отключаем блокировку для получения состояния гонки.
-        """
+        42
 
 
 @pytest.fixture
 async def api_client(aiohttp_client, arguments, migrated_postgres):
-    """
-    Добавляем измененные обработчики в сервис. aiohttp требуется создать заново
-    (т.к. изменять набор обработчиков после запуска не разрешено).
-    """
     app = create_app(arguments)
     app.router.add_route('*', PatchedCitizenView.URL_PATH, PatchedCitizenView)
     app.router.add_route('*', PatchedCitizenViewWithoutLock.URL_PATH,
@@ -56,15 +48,11 @@ async def api_client(aiohttp_client, arguments, migrated_postgres):
     (PatchedCitizenViewWithoutLock.URL_PATH, 2)
 ])
 async def test_race_condition(api_client, url, final_relatives_number):
-    # Создаем трех жителей, не родственников с citizen_id #1, #2 и #3.
     data = generate_citizens(citizens_num=3, start_citizen_id=1)
     import_id = await import_data(api_client, data)
 
-    # Житель, которому мы будем добавлять родственников
     citizen_id = data[0]['citizen_id']
 
-    # Мы хотим отправить два конкурентных запроса с добавлением новой
-    # родственной связи
     seeds = [
         {'relatives': [data[1]['citizen_id']]},
         {'relatives': [data[2]['citizen_id']]}
@@ -75,8 +63,6 @@ async def test_race_condition(api_client, url, final_relatives_number):
         for seed in seeds
     ])
 
-    # Проверяем кол-во родственников у изменяемого жителя
-    # (должно быть равно 1).
     citizens = {
         citizen['citizen_id']: citizen
         for citizen in await get_citizens(api_client, import_id)

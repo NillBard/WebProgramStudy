@@ -16,13 +16,11 @@ from .base import BaseImportView
 class CitizenBirthdaysView(BaseImportView):
     URL_PATH = r'/imports/{import_id:\d+}/citizens/birthdays'
 
-    @docs(summary='Статистика дней рождений родственников жителей по месяцам')
+    @docs(summary='birthdays statisitcs')
     @response_schema(CitizenPresentsResponseSchema(), code=HTTPStatus.OK.value)
     async def get(self):
         await self.check_import_exists()
 
-        # В задании требуется, чтобы ключами были номера месяцев
-        # (без ведущих нулей, "01" -> 1).
         month = func.date_part('month', citizens_t.c.birth_date)
         month = cast(month, Integer).label('month')
 

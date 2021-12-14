@@ -13,8 +13,6 @@ from analyzer.utils.testing import (
 
 LONGEST_STR = 'ё' * 256
 CASES = (
-    # Житель без родственников.
-    # Обработчик должен корректно создавать выгрузку с одним жителем.
     (
         [
             generate_citizen(relatives=[])
@@ -22,9 +20,6 @@ CASES = (
         HTTPStatus.CREATED
     ),
 
-    # Житель с несколькими родственниками.
-    # Обработчик должен корректно добавлять жителей и создавать
-    # родственные связи.
     (
         [
             generate_citizen(citizen_id=1, relatives=[2, 3]),
@@ -34,8 +29,6 @@ CASES = (
         HTTPStatus.CREATED
     ),
 
-    # Житель сам себе родственник.
-    # Обработчик должен позволять создавать такие родственные связи.
     (
         [
             generate_citizen(
@@ -46,9 +39,6 @@ CASES = (
         HTTPStatus.CREATED
     ),
 
-    # Выгрузка с максимально длинными/большими значениями.
-    # aiohttp должен разрешать запросы такого размера, а обработчик не должен
-    # на них падать.
     (
         generate_citizens(
             citizens_num=10000,
@@ -64,14 +54,11 @@ CASES = (
         HTTPStatus.CREATED
     ),
 
-    # Пустая выгрузка
-    # Обработчик не должен падать на таких данных.
     (
         [],
         HTTPStatus.CREATED
     ),
 
-    # Дата рождения - текущая дата
     (
         [
             generate_citizen(
@@ -81,7 +68,6 @@ CASES = (
         HTTPStatus.CREATED
     ),
 
-    # Дата рождения некорректная (в будущем)
     (
         [
             generate_citizen(
@@ -93,7 +79,6 @@ CASES = (
         HTTPStatus.BAD_REQUEST
     ),
 
-    # citizen_id не уникален в рамках выгрузки
     (
         [
             generate_citizen(citizen_id=1),
@@ -102,7 +87,6 @@ CASES = (
         HTTPStatus.BAD_REQUEST
     ),
 
-    # Родственная связь указана неверно (нет обратной)
     (
         [
             generate_citizen(citizen_id=1, relatives=[2]),
@@ -111,7 +95,6 @@ CASES = (
         HTTPStatus.BAD_REQUEST
     ),
 
-    # Родственная связь c несуществующим жителем
     (
         [
             generate_citizen(citizen_id=1, relatives=[3])
@@ -119,7 +102,6 @@ CASES = (
         HTTPStatus.BAD_REQUEST
     ),
 
-    # Родственные связи не уникальны
     (
         [
             generate_citizen(citizen_id=1, relatives=[2]),
@@ -134,7 +116,6 @@ CASES = (
 async def test_import(api_client, citizens, expected_status):
     import_id = await import_data(api_client, citizens, expected_status)
 
-    # Проверяем, что данные успешно импортированы
     if expected_status == HTTPStatus.CREATED:
         imported_citizens = await get_citizens(api_client, import_id)
         assert compare_citizen_groups(citizens, imported_citizens)

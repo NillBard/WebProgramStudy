@@ -8,18 +8,12 @@ from analyzer.api.app import create_app
 
 @pytest.fixture
 async def migrated_postgres(alembic_config, postgres):
-    """
-    Возвращает URL к БД с примененными миграциями.
-    """
     upgrade(alembic_config, 'head')
     return postgres
 
 
 @pytest.fixture
 def arguments(aiomisc_unused_port, migrated_postgres):
-    """
-    Аргументы для запуска приложения.
-    """
     return parser.parse_args(
         [
             '--log-level=debug',
@@ -45,9 +39,6 @@ async def api_client(aiohttp_client, arguments):
 
 @pytest.fixture
 def migrated_postgres_connection(migrated_postgres):
-    """
-    Синхронное соединение со смигрированной БД.
-    """
     engine = create_engine(migrated_postgres)
     conn = engine.connect()
     try:

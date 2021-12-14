@@ -44,7 +44,6 @@ class CitizenView(BaseImportView):
             values.append({**base, 'citizen_id': citizen_id,
                            'relative_id': relative_id})
 
-            # Обратная связь не нужна, если житель сам себе родственник
             if citizen_id != relative_id:
                 values.append({**base, 'citizen_id': relative_id,
                                'relative_id': citizen_id})
@@ -85,30 +84,22 @@ class CitizenView(BaseImportView):
             ))
             await conn.execute(query)
 
-    @docs(summary='Обновить указанного жителя в определенной выгрузке')
+    @docs(summary='update citizen')
     @request_schema(PatchCitizenSchema())
     @response_schema(PatchCitizenResponseSchema(), code=HTTPStatus.OK.value)
     async def patch(self):
-        # Транзакция требуется чтобы в случае ошибки (или отключения клиента,
-        # не дождавшегося ответа) откатить частично добавленные изменения, а
-        # также для получения транзакционной advisory-блокировки.
         async with self.pg.transaction() as conn:
 
-            # Блокировка позволит избежать состояние гонки между конкурентными
-            # запросами на изменение родственников.
             await self.acquire_lock(conn, self.import_id)
 
-            # Получаем информацию о жителе
             citizen = await self.get_citizen(conn, self.import_id,
                                              self.citizen_id)
             if not citizen:
                 raise HTTPNotFound()
 
-            # Обновляем таблицу citizens
             await self.update_citizen(conn, self.import_id, self.citizen_id,
                                       self.request['data'])
 
-            # Обновляем родственные связи
             if 'relatives' in self.request['data']:
                 cur_relatives = set(citizen['relatives'])
                 new_relatives = set(self.request['data']['relatives'])
@@ -121,7 +112,6 @@ class CitizenView(BaseImportView):
                     new_relatives - cur_relatives
                 )
 
-            # Получаем актуальную информацию о
             citizen = await self.get_citizen(conn, self.import_id,
                                              self.citizen_id)
         return Response(body={'data': citizen})

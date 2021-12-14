@@ -95,8 +95,6 @@ class PresentsSchema(Schema):
     presents = Int(validate=Range(min=0), strict=True, required=True)
 
 
-# Схема, содержащая кол-во подарков, которое купят жители по месяцам.
-# Чтобы не указывать вручную 12 полей класс можно сгенерировать.
 CitizenPresentsByMonthSchema = type(
     'CitizenPresentsByMonthSchema', (Schema,),
     {
