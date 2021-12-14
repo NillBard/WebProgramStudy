@@ -15,3 +15,11 @@ sdist: clean
 test: postgres
 	pytest -vv --cov=analyzer --cov-report=term-missing test
 
+devenv: clean
+	rm -rf env
+	# создаем новое окружение
+	python3.8 -m venv env
+	# обновляем pip
+	pip install -U pip
+	# устанавливаем основные + dev зависимости из extras_require (см. setup.py)
+	pip install -U'.[dev]'
