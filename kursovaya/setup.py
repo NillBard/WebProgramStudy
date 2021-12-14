@@ -33,7 +33,7 @@ setup(
     author_email=module.__email__,
     license=module.__license__,
     description=module.__doc__,
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
     url='https://github.com/NillBard/WebProgramStudy',
     platforms='all',
     classifiers=[
@@ -58,8 +58,8 @@ setup(
             # source distribution для него может собираться с помощью более
             # ранних версий python, не стоит лишать пользователей этой
             # возможности.
-            'analyzer-db = analyzer.db.__main__:main',
-            'analyzer-api = analyzer.api.__main__:main'
+            '{0}-api = {0}.api.__main__:main'.format(module_name),
+            '{0}-db = {0}.db.__main__:main'.format(module_name)
         ]
     },
     include_package_data=True

@@ -1,2 +1,3 @@
 include requirements*.txt
 include analyzer/alembic.ini
+include README.rst
