@@ -8,3 +8,10 @@ postgres:
 
 test: postgres
 	pytest -vv --cov=analyzer --cov-report=term-missing test
+
+clean:
+	rm -fr *.egg-info dist
+
+sdist: clean
+	# официальный способ дистрибуции python-модулей
+	python3 setup.py sdist
