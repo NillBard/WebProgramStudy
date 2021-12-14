@@ -6,11 +6,12 @@ postgres:
 		--env POSTGRES_DB=analyzer \
 		--publish 5432:5432 postgres
 
-test: postgres
-	pytest -vv --cov=analyzer --cov-report=term-missing test
-
 clean:
 	rm -fr *.egg-info dist
 
 sdist: clean
 	python setup.py sdist
+
+test: postgres
+	pytest -vv --cov=analyzer --cov-report=term-missing test
+
