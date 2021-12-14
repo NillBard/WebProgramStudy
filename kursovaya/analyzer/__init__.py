@@ -1,7 +1,7 @@
-__author__ = 'Kirill Kumma'
+__author__ = 'Daniil Bardyuk'
 __maintainer__ = __author__
 
-__email__ = 'kirill.kumma@gmail.com'
+__email__ = 'dan.bardyuk@yandex.ru'
 __license__ = 'MIT'
 __version__ = '0.0.1'
 
