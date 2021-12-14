@@ -43,7 +43,7 @@ jobs:
       - name: build-push
         uses: docker/build-push-action@v1
         with:
-          dockerfile: ./kursovaya/Dockerfile
+          file: ./kursovaya/Dockerfile
           context: ./kursovaya
           username: ${{ secrets.REGISTRY_LOGIN }}
           password: ${{ secrets.REGISTRY_TOKEN }}
