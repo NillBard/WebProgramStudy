@@ -45,9 +45,9 @@ jobs:
           cache-name: cache-dist
         with:
           key: ${{ runner.os }}-build-${{ env.cache-name }}
-          path: ./dist
+          path: .kursovaya/dist
 
-      - run: make sdist
+      - run: cd kursovaya && make sdist
 
       - name: Log in to the Container registry
         uses: docker/login-action@v1
