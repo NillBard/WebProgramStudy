@@ -43,6 +43,7 @@ jobs:
       - name: build-push
         uses: docker/build-push-action@v1
         with:
+          context: ./kursovaya
           username: ${{ secrets.REGISTRY_LOGIN }}
           password: ${{ secrets.REGISTRY_TOKEN }}
           repository: nillbard/webprogramstudy
