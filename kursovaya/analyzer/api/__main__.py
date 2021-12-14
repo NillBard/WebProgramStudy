@@ -1,7 +1,7 @@
 import argparse
 import logging
 import os
-import pwd
+
 from sys import argv
 
 from aiohttp.web import run_app
@@ -23,7 +23,7 @@ parser = ArgumentParser(
     auto_env_var_prefix=ENV_VAR_PREFIX, allow_abbrev=False,
     formatter_class=argparse.ArgumentDefaultsHelpFormatter
 )
-parser.add_argument('--user', required=False, type=pwd.getpwnam,
+parser.add_argument('--user', required=False,
                     help='Change process UID')
 
 group = parser.add_argument_group('API Options')
