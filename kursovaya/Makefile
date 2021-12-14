@@ -13,5 +13,4 @@ clean:
 	rm -fr *.egg-info dist
 
 sdist: clean
-	# официальный способ дистрибуции python-модулей
-	python3 setup.py sdist
+	python setup.py sdist
